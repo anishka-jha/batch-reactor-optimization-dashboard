@@ -159,6 +159,7 @@ batch-reactor-optimization-dashboard
 
 ## 👩‍💻 Developed By
 
-Anishka Jha
+Anishka Jha||
 Chemical Engineering Undergraduate(2025-2029)
+||
 BIT Sindri
