@@ -21,6 +21,8 @@ import {
 
 const pieColors = ["#22c55e", "#ef4444"];
 
+const API = "https://batch-reactor-optimization-dashboard.onrender.com";
+
 function App() {
   const [reactionOrder, setReactionOrder] = useState("first");
 
@@ -56,7 +58,7 @@ function App() {
 
   const calculate = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/simulate", {
+      const response = await axios.post(`${API}/simulate`, {
         reactionOrder,
         k,
         ca0,
@@ -116,7 +118,7 @@ function App() {
 
   const fetchHistory = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/history");
+      const response = await axios.get(`${API}/history`);
       setHistory(response.data);
       setShowHistory(true);
     } catch (error) {
@@ -126,7 +128,7 @@ function App() {
 
   const deleteSimulation = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/history/${id}`);
+      await axios.delete(`${API}/history/${id}`);
       fetchHistory();
     } catch (error) {
       console.log(error);
@@ -152,10 +154,22 @@ function App() {
     doc.text(`Final Concentration: ${result.finalConcentration} mol/L`, 20, 90);
     doc.text(`Conversion: ${result.conversion} %`, 20, 100);
     doc.text(`Temperature: ${temperature || "Not used"} K`, 20, 120);
-    doc.text(`Activation Energy: ${activationEnergy || "Not used"} J/mol`, 20, 130);
+    doc.text(
+      `Activation Energy: ${activationEnergy || "Not used"} J/mol`,
+      20,
+      130
+    );
     doc.text(`Frequency Factor: ${frequencyFactor || "Not used"}`, 20, 140);
-    doc.text(`Target Conversion: ${targetConversion || "Not entered"} %`, 20, 160);
-    doc.text(`Required Time: ${optimizedTime || "Not calculated"} hours`, 20, 170);
+    doc.text(
+      `Target Conversion: ${targetConversion || "Not entered"} %`,
+      20,
+      160
+    );
+    doc.text(
+      `Required Time: ${optimizedTime || "Not calculated"} hours`,
+      20,
+      170
+    );
     doc.text(`Generated On: ${new Date().toLocaleString()}`, 20, 190);
 
     doc.save("Batch_Reactor_Report.pdf");
@@ -187,8 +201,8 @@ function App() {
         <div className="badge">Industrial Process Simulation</div>
         <h1>🧪 Batch Reactor Optimization Dashboard</h1>
         <p>
-          Simulate reaction kinetics, optimize conversion, analyze reactor performance,
-          store simulations, and export professional reports.
+          Simulate reaction kinetics, optimize conversion, analyze reactor
+          performance, store simulations, and export professional reports.
         </p>
       </section>
 
